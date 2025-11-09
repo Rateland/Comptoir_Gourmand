@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Comptoir Gourmand - Accueil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2691E;
+            --accent: #CD853F;
+            --dark: #3E2723;
+            --light: #FFF8DC;
+            --cream: #FAEBD7;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(to bottom, var(--dark) 0%, #5D4037 100%);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-links li:first-child a {
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: var(--accent);
+            border: none;
+            padding: 0.8rem 1.2rem;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(62, 39, 35, 0.7), rgba(62, 39, 35, 0.7));
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139,69,19,0.05) 2px, rgba(139,69,19,0.05) 4px),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,69,19,0.05) 2px, rgba(139,69,19,0.05) 4px),
+                linear-gradient(135deg, #5D4037 0%, #3E2723 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 3rem;
+            background: rgba(62, 39, 35, 0.6);
+            border: 3px solid var(--accent);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            font-weight: normal;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            letter-spacing: 3px;
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--light);
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-block;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(205, 133, 63, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .section-header p {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-style: italic;
+            margin-top: 1.5rem;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            background: white;
+            border-radius: 10px;
+            padding: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .welcome-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .welcome-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-text p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        .welcome-image {
+            height: 450px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 10px;
+            border: 5px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(139,69,19,.05) 35px, rgba(139,69,19,.05) 70px);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Menu Preview */
+        .menu-preview {
+            background: linear-gradient(to right, var(--dark) 0%, #5D4037 100%);
+            color: white;
+        }
+
+        .menu-preview .section-header h2,
+        .menu-preview .section-header p {
+            color: white;
+        }
+
+        .menu-preview .section-header h2::after {
+            background: var(--light);
+        }
+
+        .menu-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .menu-category-card {
+            background: rgba(255,255,255,0.08);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .menu-category-card:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-5px);
+            border-color: var(--light);
+        }
+
+        .menu-category-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .menu-category-card p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+
+        .menu-category-card .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Hours & Location */
+        .info-section {
+            background: white;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .info-card {
+            background: var(--cream);
+            padding: 3rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .info-card h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-card .icon {
+            font-size: 2.5rem;
+        }
+
+        .hours-table {
+            width: 100%;
+        }
+
+        .hours-table tr {
+            border-bottom: 1px solid rgba(139,69,19,0.2);
+        }
+
+        .hours-table td {
+            padding: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .hours-table td:first-child {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .info-card p {
+            font-size: 1.15rem;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .info-card strong {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to bottom, var(--dark) 0%, #1a0f0a 100%);
+            color: var(--light);
+            padding: 4rem 2rem 2rem;
+            border-top: 4px solid var(--accent);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links a::before {
+            content: '→ ';
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 80px);
+                background: var(--dark);
+                flex-direction: column;
+                padding: 2rem 0;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links li:first-child a {
+                border-left: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .welcome-content,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .welcome {
+                padding: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Le Comptoir <span>Gourmand</span></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Accueil</a></li>
+                <li><a href="menus.html">Menus</a></li>
+                <li><a href="vins.html">Vins & Champagnes</a></li>
+                <li><a href="cafes.html">Cafés & Thés</a></li>
+                <li><a href="snacking.html">Snacking</a></li>
+                <li><a href="histoire.html">Notre Histoire</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <span style="position: relative; z-index: 1;">IMAGE HERO - Ambiance bistrot chaleureux (1920x1080)</span>
+        </div>
+        <div class="hero-content">
+            <h1>Le Comptoir Gourmand</h1>
+            <p class="tagline">Bistronomie & Authenticité</p>
+            <p class="subtitle">Depuis toujours, la passion du bien manger</p>
+            <div class="cta-buttons">
+                <a href="menus.html" class="btn btn-primary">Découvrir nos Menus</a>
+                <a href="contact.html" class="btn btn-secondary">Nous contacter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section>
+        <div class="welcome">
+            <div class="section-header">
+                <h2>Bienvenue</h2>
+                <p>Une cuisine de caractère, des saveurs d'antan</p>
+            </div>
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <h3>L'esprit du bistrot</h3>
+                    <p>Au Comptoir Gourmand, nous perpétuons la tradition des bistrots de province où la convivialité et la qualité des produits sont les maîtres-mots. Notre cuisine généreuse puise son inspiration dans les recettes d'autrefois, revisitées avec élégance.</p>
+                    <p>Dans un décor chaleureux qui évoque les comptoirs d'antan, venez savourer une cuisine authentique préparée avec passion par notre chef et son équipe. Chaque plat raconte une histoire, celle du terroir et des producteurs que nous avons à cœur de mettre en valeur.</p>
+                    <p>Que vous veniez pour un déjeuner entre collègues, un dîner romantique ou une célébration en famille, nous vous réservons le meilleur accueil dans une atmosphère où le temps semble s'être arrêté.</p>
+                </div>
+                <div class="welcome-image">
+                    <span style="position: relative; z-index: 1;">IMAGE - Intérieur bistrot vintage (600x450)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+        <div class="section-header">
+            <h2>Nos Valeurs</h2>
+            <p>Ce qui fait notre différence</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🥘</div>
+                <h3>Cuisine Maison</h3>
+                <p>Tous nos plats sont préparés sur place, avec des techniques traditionnelles et un savoir-faire transmis de génération en génération.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌾</div>
+                <h3>Produits Locaux</h3>
+                <p>Nous travaillons en direct avec des producteurs de la région pour garantir fraîcheur et qualité exceptionnelle.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍷</div>
+                <h3>Cave Sélectionnée</h3>
+                <p>Une carte des vins soigneusement élaborée avec des références de vignerons passionnés et des grands classiques.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview -->
+    <section class="menu-preview">
+        <div class="section-header">
+            <h2>Nos Cartes</h2>
+            <p>Explorez notre univers gastronomique</p>
+        </div>
+        <div class="menu-categories">
+            <div class="menu-category-card">
+                <h3>🍽️ Menus</h3>
+                <p>Menu du jour, menu tradition et menu découverte élaborés avec passion</p>
+                <a href="menus.html" class="btn btn-primary">Voir les menus</a>
+            </div>
+            <div class="menu-category-card">
+                <h3>🍷 Vins & Champagnes</h3>
+                <p>Une sélection de vins français et champagnes pour sublimer vos repas</p>
+                <a href="vins.html" class="btn btn-primary">Voir la carte</a>
+            </div>
+            <div class="menu-category-card">
+                <h3>☕ Cafés & Thés</h3>
+                <p>Cafés d'exception et thés du monde pour prolonger le plaisir</p>
+                <a href="cafes.html" class="btn btn-primary">Voir la carte</a>
+            </div>
+            <div class="menu-category-card">
+                <h3>🥖 Snacking</h3>
+                <p>Tartines, planches et en-cas gourmands pour les petites faims</p>
+                <a href="snacking.html" class="btn btn-primary">Voir la carte</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours & Info -->
+    <section class="info-section">
+        <div class="section-header">
+            <h2>Informations Pratiques</h2>
+            <p>Venez nous rendre visite</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><span class="icon">🕒</span> Horaires</h3>
+                <table class="hours-table">
+                    <tr>
+                        <td>Lundi</td>
+                        <td>Fermé</td>
+                    </tr>
+                    <tr>
+                        <td>Mardi - Vendredi</td>
+                        <td>12h00 - 14h00 • 19h00 - 22h00</td>
+                    </tr>
+                    <tr>
+                        <td>Samedi</td>
+                        <td>12h00 - 14h30 • 19h00 - 22h30</td>
+                    </tr>
+                    <tr>
+                        <td>Dimanche</td>
+                        <td>12h00 - 15h00</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-card">
+                <h3><span class="icon">📍</span> Nous Trouver</h3>
+                <p><strong>Adresse</strong><br>
+                28 Place du Marché<br>
+                69000 Lyon<br>
+                France</p>
+                <p><strong>Téléphone</strong><br>
+                04 78 XX XX XX</p>
+                <p><strong>Email</strong><br>
+                contact@comptoirgourmand.fr</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Le Comptoir Gourmand</h3>
+                <p>Bistronomie authentique et cuisine de caractère depuis toujours. Venez découvrir notre passion pour la gastronomie française dans un cadre chaleureux.</p>
+            </div>
+            <div class="footer-section footer-links">
+                <h3>Navigation</h3>
+                <a href="index.html">Accueil</a>
+                <a href="menus.html">Nos Menus</a>
+                <a href="vins.html">Vins & Champagnes</a>
+                <a href="cafes.html">Cafés & Thés</a>
+                <a href="snacking.html">Snacking</a>
+                <a href="histoire.html">Notre Histoire</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Mardi - Vendredi<br>12h-14h • 19h-22h</p>
+                <p>Samedi<br>12h-14h30 • 19h-22h30</p>
+                <p>Dimanche<br>12h-15h</p>
+                <p><strong>Fermé le lundi</strong></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📍 28 Place du Marché<br>69000 Lyon</p>
+                <p>📞 04 78 XX XX XX</p>
+                <p>✉️ contact@comptoirgourmand.fr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Le Comptoir Gourmand. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    navLinks.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
