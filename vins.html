@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vins &amp; Champagnes - Le Comptoir Gourmand</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2691E;
+            --accent: #CD853F;
+            --dark: #3E2723;
+            --light: #FFF8DC;
+            --cream: #FAEBD7;
+            --red-1:#6d1b1b;   --red-2:#8b0000;
+            --white-1:#c9b18a; --white-2:#e0caa0;
+            --rose-1:#b56576;  --rose-2:#e5989b;
+            --chp-1:#b08d57;   --chp-2:#d4af37;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: var(--cream);
+        }
+
+        /* Navigation - Same as index */
+        nav {
+            background: linear-gradient(to bottom, var(--dark) 0%, #5D4037 100%);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .logo span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-links li:first-child a {
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: var(--accent);
+            border: none;
+            padding: 0.8rem 1.2rem;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(62, 39, 35, 0.85), rgba(62, 39, 35, 0.85));
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139,69,19,0.1) 2px, rgba(139,69,19,0.1) 4px),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,69,19,0.1) 2px, rgba(139,69,19,0.1) 4px),
+                linear-gradient(135deg, #5D4037 0%, #3E2723 100%);
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.15);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .page-header p {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        
+        /* Wine region subtitle styling, aligned with menus' .subtitle */
+        .wine-region {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-style: italic;
+            margin-top: 0.25rem;
+            opacity: 0.95;
+        }
+
+/* Harmonization: added missing class rules copied/derived from menus.css */
+.champagne{
+  /* teintes or (cohérentes avec menus) */
+  --tone-1: var(--chp-1);   /* #b08d57 */
+  --tone-2: var(--chp-2);   /* #d4af37 */
+  --tone-ink: #fff;         /* texte clair par défaut */
+
+  /* halo très léger si la classe est utilisée hors header */
+  background-image: linear-gradient(180deg, rgba(212,175,55,.06), rgba(212,175,55,0));
+  background-clip: padding-box;
+}
+
+.champagne .wine-region{ color: rgba(255,255,255,.9); }
+
+.champagne-section{
+  background:linear-gradient(0deg, rgba(250,235,215,.45), rgba(250,235,215,0));
+  padding:1rem 1rem 0;
+  border-radius:10px;
+}
+
+.characteristic{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.25rem .6rem;
+  font-size:.9rem;
+  border:1px solid rgba(205,133,63,.35);
+  border-radius:999px;
+  background:linear-gradient(180deg, #fff, #fff8f0);
+  color:var(--dark);
+  white-space:nowrap;
+}
+
+.premium{
+  --ring-color: var(--secondary);              /* #D2691E */
+  --glow-color: rgba(205,133,63,.22);          /* accent doux */
+  position: relative;
+}
+
+.premium .price-value,
+.premium .price-label{ color: var(--secondary); }
+.premium .characteristic{
+  border-color: rgba(205,133,63,.45);
+  background: linear-gradient(180deg, #fff, #fff6ea);
+}
+/* En-têtes champagne : utilisent les tokens de .champagne */
+.wine-card-header.champagne{
+  background: linear-gradient(to right, var(--tone-1), var(--tone-2));
+  color: var(--tone-ink);
+}
+.wine-card-header.champagne .wine-region{
+  color: rgba(255,255,255,.9);
+}
+.wine-card-header.red{
+  background: linear-gradient(to right, var(--red-1), var(--red-2));
+}
+.wine-card-header.white{
+  background: linear-gradient(to right, var(--white-1), var(--white-2));
+  color:#2b1f16;
+}
+.wine-card-header.white .wine-region{ color:#3b2e24; opacity:.9; }
+.wine-card-header.rose{
+  background: linear-gradient(to right, var(--rose-1), var(--rose-2));
+}
+
+/* Cartes premium : renfort visuel sur le conteneur carte */
+.wine-card.premium{
+  border-color: var(--ring-color);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.18),
+    0 0 0 3px var(--glow-color) inset;
+}
+
+.region-section{
+  margin-top:2.5rem;
+  padding-top:.25rem;
+}
+
+.region-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.wine-card{
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    transition:transform .2s ease;
+}
+
+.wine-card-footer{
+  background:var(--cream);
+  border-top:2px solid rgba(205,133,63,.35);
+  padding:1rem 1.5rem;
+}
+
+.wine-description{
+  margin:.5rem 0 1rem;
+  color:#5a514d;
+}
+.wine-characteristics{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin-top:.75rem;
+}
+.wine-prices{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:.75rem 1rem;
+  align-items:stretch;
+}
+.wine-card:hover{
+  transform:translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce){
+  .wine-card{ transition:none; }
+}
+
+/* Main Content */
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .intro-text {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent);
+        }
+
+        .intro-text p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        
+        /* Section header for wine sections (icon + title) */
+        .section-header-wine {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-header-wine h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        .section-header-wine .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            font-style: italic;
+        }
+        .wine-icon {
+            font-size: 2rem;
+        }
+        /* Menu Cards */
+        .wine-section {
+            margin-bottom: 5rem;
+        }
+
+        .wine-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 3px solid var(--accent);
+        }
+
+        .wine-card-header {
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 3rem;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .wine-card-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wine-card-header h3 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wine-card-header .price {
+            font-size: 2rem;
+            color: var(--light);
+            font-weight: bold;
+        }
+
+        .wine-card-header .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .wine-card-body {
+            padding: 3rem;
+        }
+
+        .wine-course {
+            margin-bottom: 3rem;
+        }
+
+        .wine-course:last-child {
+            margin-bottom: 0;
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .course-icon {
+            font-size: 2rem;
+        }
+
+        .course-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .wine-items {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        /* Keep course list items block-level */
+        .wine-course .wine-item { padding-left: 1rem; display: block; }
+        .wine-category .wine-item {
+            padding-left: 1rem;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-description {
+            font-size: 1.05rem;
+            color: #666;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .wine-options {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .wine-options h4 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .wine-options ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .wine-options li {
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .wine-options li::before {
+            content: '✓ ';
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* A la Carte Section */
+        .carte-section {
+            background: white;
+            padding: 4rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--accent);
+        }
+
+        .carte-section h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .carte-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .wine-grid {
+            display: grid;
+            grid-auto-rows: 1fr;
+            align-items: stretch;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .wine-category h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .wine-category .wine-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139,69,19,0.1);
+        }
+        .wine-category .wine-item:last-child {
+            border-bottom: none;
+        }
+        
+        .wine-card-header, .wine-card-footer{ flex-shrink:0; }
+        .wine-card-body{ flex:1 1 auto; }
+
+        .price-item {
+        align-items: center;
+        }
+        .price-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+            white-space: nowrap;
+            text-align: center;
+        }
+        .price-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+            white-space: nowrap;
+            text-align: center;
+        }
+        .wine-category .wine-item-info {
+            flex: 1;
+            padding-right: 1rem;
+        }
+        .wine-category .wine-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        .wine-category .wine-item-desc {
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+        }
+        .wine-category .wine-item-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        /* Footer - Same as index */
+        footer {
+            background: linear-gradient(to bottom, var(--dark) 0%, #1a0f0a 100%);
+            color: var(--light);
+            padding: 4rem 2rem 2rem;
+            border-top: 4px solid var(--accent);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links a::before {
+            content: '→ ';
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 300px;
+                height: calc(100vh - 80px);
+                background: var(--dark);
+                flex-direction: column;
+                padding: 2rem 0;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links li:first-child a {
+                border-left: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .wine-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px){
+            .page-header h1 { font-size: 2.5rem; }
+            .wine-card-header h2 { font-size: 2rem; }
+            .wine-card-body,
+            .carte-section { padding: 2rem; }
+            .content { padding: 3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Le Comptoir <span>Gourmand</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menus.html">Menus</a></li>
+                <li><a href="vins.html" class="active">Vins & Champagnes</a></li>
+                <li><a href="cafes.html">Cafés & Thés</a></li>
+                <li><a href="snacking.html">Snacking</a></li>
+                <li><a href="histoire.html">Notre Histoire</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+<!-- Page Header -->
+<section class="page-header">
+    <div class="page-header-bg">
+        <span style="position: relative; z-index: 1;">IMAGE HEADER - Cave à vins/bouteilles (1920x400)</span>
+    </div>
+    <div class="page-header-content">
+        <h1>Carte des Vins & Champagnes</h1>
+        <p>Une sélection raffinée des meilleurs terroirs français</p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="content">
+    <!-- Introduction -->
+    <div class="intro-text">
+        <p>Notre cave a été soigneusement constituée pour vous offrir une sélection de vins et champagnes qui sublimeront votre repas. Des grands classiques aux découvertes de vignerons passionnés, chaque bouteille a été choisie pour sa qualité et son rapport qualité-prix.</p>
+        <p><strong>Notre sommelier est à votre disposition pour vous conseiller dans vos choix.</strong></p>
+    </div>
+
+    <!-- Champagnes Section -->
+    <section class="wine-section champagne-section">
+        <div class="section-header-wine">
+            <div class="wine-icon">🍾</div>
+            <div>
+                <h2>Champagnes</h2>
+                <p class="section-subtitle">L'excellence des bulles françaises</p>
+            </div>
+        </div>
+
+        <div class="wine-grid">
+            <div class="wine-card">
+                <div class="wine-card-header champagne">
+                    <h3>Champagne Brut Tradition</h3>
+                    <span class="wine-region">Maison Réputée</span>
+                </div>
+                <div class="wine-card-body">
+                    <p class="wine-description">Assemblage harmonieux de Pinot Noir, Pinot Meunier et Chardonnay. Notes de fruits blancs et brioche.</p>
+                    <div class="wine-characteristics">
+                        <span class="characteristic">Brut</span>
+                        <span class="characteristic">75cl</span>
+                    </div>
+                </div>
+                <div class="wine-card-footer">
+                    <div class="wine-prices">
+                        <div class="price-item">
+                            <span class="price-label">Coupe</span>
+                            <span class="price-value">12€</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Bouteille</span>
+                            <span class="price-value">65€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wine-card">
+                <div class="wine-card-header champagne">
+                    <h3>Champagne Blanc de Blancs</h3>
+                    <span class="wine-region">100% Chardonnay</span>
+                </div>
+                <div class="wine-card-body">
+                    <p class="wine-description">Élégance et finesse, notes d'agrumes et de fleurs blanches. Parfait pour l’apéritif ou en entrée.</p>
+                    <div class="wine-characteristics">
+                        <span class="characteristic">Extra-Brut</span>
+                        <span class="characteristic">75cl</span>
+                    </div>
+                </div>
+                <div class="wine-card-footer">
+                    <div class="wine-prices">
+                        <div class="price-item">
+                            <span class="price-label">Coupe</span>
+                            <span class="price-value">14€</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Bouteille</span>
+                            <span class="price-value">78€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wine-card premium">
+                <div class="wine-card-header champagne">
+                    <h3>Champagne Rosé Prestige</h3>
+                    <span class="wine-region">Cuvée Spéciale</span>
+                </div>
+                <div class="wine-card-body">
+                    <p class="wine-description">Robe saumonée délicate, arômes de fruits rouges. Idéal avec les desserts ou en apéritif raffiné.</p>
+                    <div class="wine-characteristics">
+                        <span class="characteristic">Brut Rosé</span>
+                        <span class="characteristic">75cl</span>
+                        <span class="characteristic">⭐ Coup de cœur</span>
+                    </div>
+                </div>
+                <div class="wine-card-footer">
+                    <div class="wine-prices">
+                        <div class="price-item">
+                            <span class="price-label">Coupe</span>
+                            <span class="price-value">16€</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Bouteille</span>
+                            <span class="price-value">92€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wine-card premium">
+                <div class="wine-card-header champagne">
+                    <h3>Grande Cuvée Millésimée</h3>
+                    <span class="wine-region">2015 - Grande Maison</span>
+                </div>
+                <div class="wine-card-body">
+                    <p class="wine-description">Champagne d'exception issu d'une année remarquable. Complexité aromatique, notes de miel et fruits secs.</p>
+                    <div class="wine-characteristics">
+                        <span class="characteristic">Brut Millésimé</span>
+                        <span class="characteristic">75cl</span>
+                        <span class="characteristic">🏆 Prestige</span>
+                    </div>
+                </div>
+                <div class="wine-card-footer">
+                    <div class="wine-prices">
+                        <div class="price-item">
+                            <span class="price-label">Coupe</span>
+                            <span class="price-value">73€</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Bouteille</span>
+                            <span class="price-value">145€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vins Blancs -->
+    <section class="wine-section">
+        <div class="section-header-wine">
+            <div class="wine-icon">🍷</div>
+            <div>
+                <h2>Vins Blancs</h2>
+                <p class="section-subtitle">Fraîcheur et élégance</p>
+            </div>
+        </div>
+
+        <!-- Val de Loire -->
+        <div class="region-section">
+            <h3 class="region-title">🏰 Val de Loire</h3>
+            <div class="wine-grid">
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Sancerre</h3>
+                        <span class="wine-region">Domaine Familial</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Sauvignon blanc pur, vif et minéral. Notes de fruits blancs et agrumes. Parfait avec poissons et fruits de mer.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Sec</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">8€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">38€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Pouilly-Fumé</h3>
+                        <span class="wine-region">Vigneron Indépendant</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Arômes fumés caractéristiques, belle longueur en bouche. Accompagne merveilleusement chèvres chauds et volailles.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Sec</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">9€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">42€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Vouvray Demi-Sec</h3>
+                        <span class="wine-region">Chenin Blanc</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Chenin blanc tendre et fruité, notes de miel et fruits confits. Idéal avec foie gras ou desserts aux fruits.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Demi-Sec</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">7€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">34€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bourgogne -->
+        <div class="region-section">
+            <h3 class="region-title">🍇 Bourgogne</h3>
+            <div class="wine-grid">
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Chablis</h3>
+                        <span class="wine-region">Domaine Réputé</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Chardonnay minéral et vif, sur des sols kimméridgiens. Notes iodées, parfait avec huîtres et coquillages.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Sec</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">9€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">44€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card premium">
+                    <div class="wine-card-header white">
+                        <h3>Meursault</h3>
+                        <span class="wine-region">1er Cru</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">L'excellence bourguignonne. Richesse, complexité, notes beurrées et noisette. Un grand vin de garde.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Sec</span>
+                            <span class="characteristic">75cl</span>
+                            <span class="characteristic">⭐ Prestige</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">82€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Saint-Véran</h3>
+                        <span class="wine-region">Mâconnais</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Chardonnay souple et fruité, bel équilibre. Excellent rapport qualité-prix pour un bourgogne blanc.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Sec</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">7€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">36€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alsace -->
+        <div class="region-section">
+            <h3 class="region-title">🌸 Alsace</h3>
+            <div class="wine-grid">
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Riesling</h3>
+                        <span class="wine-region">Domaine Biologique</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Sec et racé, notes d'agrumes et de fleurs. L'élégance alsacienne par excellence. Parfait avec choucroute ou poisson.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Sec</span>
+                            <span class="characteristic">75cl</span>
+                            <span class="characteristic">🌱 Bio</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">8€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">39€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header white">
+                        <h3>Gewurztraminer</h3>
+                        <span class="wine-region">Vendanges Tardives</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Aromatique et puissant, notes de litchi et épices. Merveilleux avec foie gras ou munster.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Demi-Sec</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">9€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">45€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vins Rouges -->
+    <section class="wine-section">
+        <div class="section-header-wine">
+            <div class="wine-icon">🍷</div>
+            <div>
+                <h2>Vins Rouges</h2>
+                <p class="section-subtitle">Puissance et caractère</p>
+            </div>
+        </div>
+
+        <!-- Bordeaux -->
+        <div class="region-section">
+            <h3 class="region-title">🏰 Bordeaux</h3>
+            <div class="wine-grid">
+                <div class="wine-card">
+                    <div class="wine-card-header red">
+                        <h3>Médoc</h3>
+                        <span class="wine-region">Cru Bourgeois</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Assemblage classique cabernet-merlot. Tanins présents, notes de fruits noirs. Idéal avec viandes rouges.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Corsé</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">8€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">42€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card premium">
+                    <div class="wine-card-header red">
+                        <h3>Pauillac</h3>
+                        <span class="wine-region">Grand Cru Classé 2016</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Un grand bordeaux d'exception. Puissance, élégance, complexité. Notes de cèdre, cassis et tabac. Vin de garde.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Corsé</span>
+                            <span class="characteristic">75cl</span>
+                            <span class="characteristic">🏆 Grand Cru</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">125€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header red">
+                        <h3>Saint-Émilion</h3>
+                        <span class="wine-region">Grand Cru</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Merlot dominant, rondeur et fruité. Notes de fruits rouges mûrs et épices douces. Accessible et élégant.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Corsé</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">10€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">52€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bourgogne -->
+        <div class="region-section">
+            <h3 class="region-title">🍇 Bourgogne</h3>
+            <div class="wine-grid">
+                <div class="wine-card">
+                    <div class="wine-card-header red">
+                        <h3>Côte de Beaune</h3>
+                        <span class="wine-region">Villages</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Pinot noir élégant et fruité. Notes de cerise et sous-bois. Belle expression du terroir bourguignon.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Moyen</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">9€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">46€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card premium">
+                    <div class="wine-card-header red">
+                        <h3>Gevrey-Chambertin</h3>
+                        <span class="wine-region">1er Cru</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Un des plus grands vins de Bourgogne. Profondeur, complexité, tanins soyeux. Notes de fruits noirs et réglisse.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Corsé</span>
+                            <span class="characteristic">75cl</span>
+                            <span class="characteristic">⭐ Prestige</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">95€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header red">
+                        <h3>Mercurey</h3>
+                        <span class="wine-region">Côte Chalonnaise</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Pinot noir structuré et charpenté. Bon rapport qualité-prix pour un rouge de Bourgogne. Fruits rouges et épices.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Moyen</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">8€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">38€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vallée du Rhône -->
+        <div class="region-section">
+            <h3 class="region-title">☀️ Vallée du Rhône</h3>
+            <div class="wine-grid">
+                <div class="wine-card">
+                    <div class="wine-card-header red">
+                        <h3>Côtes du Rhône Villages</h3>
+                        <span class="wine-region">Vieilles Vignes</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Grenache, syrah et mourvèdre. Généreux et épicé, notes de garrigue. Parfait avec gibier et plats mijotés.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Corsé</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">7€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">34€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card premium">
+                    <div class="wine-card-header red">
+                        <h3>Châteauneuf-du-Pape</h3>
+                        <span class="wine-region">Domaine Prestigieux</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">Le roi des Côtes du Rhône. Puissance, richesse, complexité exceptionnelle. Notes de fruits noirs confits et épices.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Puissant</span>
+                            <span class="characteristic">75cl</span>
+                            <span class="characteristic">🏆 Prestige</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">78€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">78€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card">
+                    <div class="wine-card-header red">
+                        <h3>Crozes-Hermitage</h3>
+                        <span class="wine-region">Syrah</span>
+                    </div>
+                    <div class="wine-card-body">
+                        <p class="wine-description">100% Syrah, fruité et épicé. Notes de violette et poivre. Excellent avec viandes grillées.</p>
+                        <div class="wine-characteristics">
+                            <span class="characteristic">Corsé</span>
+                            <span class="characteristic">75cl</span>
+                        </div>
+                    </div>
+                    <div class="wine-card-footer">
+                        <div class="wine-prices">
+                            <div class="price-item">
+                                <span class="price-label">Verre</span>
+                                <span class="price-value">8€</span>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Bouteille</span>
+                                <span class="price-value">41€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vins Rosés -->
+    <section class="wine-section">
+        <div class="section-header-wine">
+            <div class="wine-icon">🌸</div>
+            <div>
+                <h2>Vins Rosés</h2>
+                <p class="section-subtitle">Fraîcheur et convivialité</p>
+            </div>
+        </div>
+
+        <div class="wine-grid">
+            <div class="wine-card">
+                <div class="wine-card-header rose">
+                    <h3>Côtes de Provence</h3>
+                    <span class="wine-region">Cru Classé</span>
+                </div>
+                <div class="wine-card-body">
+                    <p class="wine-description">Robe pétale de rose, frais et fruité. Notes d'agrumes et fruits rouges. Le rosé de Provence par excellence.</p>
+                    <div class="wine-characteristics">
+                        <span class="characteristic">Sec</span>
+                        <span class="characteristic">75cl</span>
+                    </div>
+                </div>
+                <div class="wine-card-footer">
+                    <div class="wine-prices">
+                        <div class="price-item">
+                            <span class="price-label">Verre</span>
+                            <span class="price-value">7€</span>
+                        </div>
+                        <div class="price-item">
+                            <span class="price-label">Bouteille</span>
+                            <span class="price-value">40€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Le Comptoir Gourmand</h3>
+                <p>Bistronomie authentique et cuisine de caractère depuis toujours. Venez découvrir notre passion pour la gastronomie française dans un cadre chaleureux.</p>
+            </div>
+            <div class="footer-section footer-links">
+                <h3>Navigation</h3>
+                <a href="index.html">Accueil</a>
+                <a href="menus.html">Nos Menus</a>
+                <a href="vins.html">Vins & Champagnes</a>
+                <a href="cafes.html">Cafés & Thés</a>
+                <a href="snacking.html">Snacking</a>
+                <a href="histoire.html">Notre Histoire</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Mardi - Vendredi<br>12h-14h • 19h-22h</p>
+                <p>Samedi<br>12h-14h30 • 19h-22h30</p>
+                <p>Dimanche<br>12h-15h</p>
+                <p><strong>Fermé le lundi</strong></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📍 28 Place du Marché<br>69000 Lyon</p>
+                <p>📞 04 78 XX XX XX</p>
+                <p>✉️ contact@comptoirgourmand.fr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Le Comptoir Gourmand. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    navLinks.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                }
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
