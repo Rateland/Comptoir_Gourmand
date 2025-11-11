@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Menus - Le Comptoir Gourmand</title>
+    <style>
+        .intro-text {
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto 5rem;
+        background: white;
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        border-top: 4px solid var(--accent);
+        }
+
+        .intro-text p {
+        font-size: 1.2rem;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+        }
+
+        .beverage-section {
+        margin-bottom: 5rem;
+        }
+
+        .coffee-section {
+        background: linear-gradient(to bottom, rgba(139,69,19,0.03) 0%, white 100%);
+        padding: 3rem;
+        border-radius: 15px;
+        }
+
+        .tea-section {
+        background: linear-gradient(to bottom, rgba(34,139,34,0.03) 0%, white 100%);
+        padding: 3rem;
+        border-radius: 15px;
+        }
+
+    .section-header-beverage {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        padding: 2rem 3rem;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .beverage-icon {
+        font-size: 4rem;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    .section-header-beverage h2 {
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    .section-subtitle {
+        font-size: 1.3rem;
+        font-style: italic;
+        color: var(--light);
+        margin-top: 0.5rem;
+    }
+
+    .category-block {
+        margin-bottom: 4rem;
+    }
+
+    .premium-block {
+        background: linear-gradient(135deg, rgba(205,133,63,0.1) 0%, rgba(212,163,115,0.05) 100%);
+        padding: 2rem;
+        border-radius: 10px;
+        border: 2px solid var(--accent);
+    }
+
+    .seasonal-block {
+        background: linear-gradient(135deg, rgba(100,149,237,0.1) 0%, rgba(135,206,250,0.05) 100%);
+        padding: 2rem;
+        border-radius: 10px;
+        border: 2px solid #6495ED;
+    }
+
+    .category-title {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 3px solid var(--accent);
+    }
+
+    .beverage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .beverage-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .beverage-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border-color: var(--accent);
+    }
+
+    .beverage-card.premium {
+        border: 2px solid var(--accent);
+        background: linear-gradient(to bottom, white 0%, var(--cream) 100%);
+    }
+
+    .beverage-card.special {
+        border: 2px solid var(--secondary);
+    }
+
+    .beverage-card.seasonal {
+        border: 2px solid #6495ED;
+    }
+
+    .beverage-card-header {
+        padding: 1.5rem;
+        color: white;
+        border-bottom: 3px solid rgba(255,255,255,0.3);
+    }
+
+    .beverage-card-header.coffee {
+        background: linear-gradient(135deg, #6F4E37 0%, #3E2723 100%);
+    }
+
+    .beverage-card-header.coffee-premium {
+        background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+    }
+
+    .beverage-card-header.coffee-special {
+        background: linear-gradient(135deg, #CD853F 0%, #DAA520 100%);
+    }
+
+    .beverage-card-header.tea-black {
+        background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    }
+
+    .beverage-card-header.tea-green {
+        background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+    }
+
+    .beverage-card-header.tea-green-premium {
+        background: linear-gradient(135deg, #006400 0%, #228B22 100%);
+    }
+
+    .beverage-card-header.tea-white {
+        background: linear-gradient(135deg, #F0E68C 0%, #BDB76B 100%);
+    }
+
+    .beverage-card-header.tea-oolong {
+        background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+    }
+
+    .beverage-card-header.infusion {
+        background: linear-gradient(135deg, #9370DB 0%, #8A2BE2 100%);
+    }
+
+    .beverage-card-header.iced {
+        background: linear-gradient(135deg, #4682B4 0%, #5F9EA0 100%);
+    }
+
+    .beverage-card-header h4 {
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .origin {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        font-style: italic;
+    }
+
+    .beverage-card-body {
+        padding: 1.5rem;
+    }
+
+    .beverage-description {
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 1rem;
+        font-size: 1.05rem;
+    }
+
+    .beverage-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .detail-badge {
+        padding: 0.4rem 0.8rem;
+        background: var(--cream);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: var(--primary);
+        font-weight: 600;
+        border: 1px solid var(--accent);
+    }
+
+    .beverage-card-footer {
+        padding: 1.2rem 1.5rem;
+        background: var(--cream);
+        border-top: 2px solid rgba(139,69,19,0.1);
+        text-align: center;
+    }
+
+    .beverage-price {
+        font-size: 1.8rem;
+        color: var(--primary);
+        font-weight: bold;
+    }
+
+    /* Service Banner */
+    .service-banner {
+        background: linear-gradient(135deg, var(--dark) 0%, #5D4037 100%);
+        padding: 4rem;
+        border-radius: 15px;
+        color: white;
+        margin: 5rem 0;
+    }
+
+    .service-banner-content h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--accent);
+    }
+
+    .service-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+    }
+
+    .service-info-item {
+        text-align: center;
+    }
+
+    .service-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-info-item h3 {
+        font-size: 1.6rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+    }
+
+    .service-info-item p {
+        color: var(--light);
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+
+    /* Pairing Section */
+    .pairing-section {
+        background: white;
+        padding: 4rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-top: 5px solid var(--accent);
+    }
+
+    .pairing-section h2 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .pairing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .pairing-card {
+        background: var(--cream);
+        padding: 2.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--accent);
+    }
+
+    .pairing-card h3 {
+        font-size: 1.6rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+    }
+
+    .pairing-card ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .pairing-card li {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(139,69,19,0.1);
+        font-size: 1.05rem;
+        color: #555;
+    }
+
+    .pairing-card li:last-child {
+        border-bottom: none;
+    }
+
+    .pairing-card strong {
+        color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .beverage-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-header-beverage {
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .section-header-beverage h2 {
+            font-size: 2.2rem;
+        }
+
+        .beverage-icon,
+        .service-icon {
+            font-size: 3rem;
+        }
+
+        .coffee-section,
+        .tea-section,
+        .service-banner,
+        .pairing-section {
+            padding: 2rem;
+        }
+
+        .service-info-grid,
+        .pairing-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Le Comptoir <span>Gourmand</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menus.html" class="active">Menus</a></li>
+                <li><a href="vins.html">Vins & Champagnes</a></li>
+                <li><a href="cafes.html">Cafés & Thés</a></li>
+                <li><a href="snacking.html">Snacking</a></li>
+                <li><a href="histoire.html">Notre Histoire</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+<!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <span style="position: relative; z-index: 1;">IMAGE HEADER - Tasse de café/théière (1920x400)</span>
+        </div>
+        <div class="page-header-content">
+            <h1>Cafés & Thés</h1>
+            <p>Une sélection d'exception pour prolonger le plaisir</p>
+        </div>
+    </section>
+
+<!-- Main Content -->
+    <div class="content">
+    <!-- Introduction -->
+        <div class="intro-text">
+        <p>Après un repas gourmand, rien de tel qu'un café d'exception ou un thé raffiné pour prolonger ce moment de plaisir. Nous avons sélectionné pour vous des cafés provenant des meilleures plantations du monde et des thés issus de jardins réputés.</p>
+        <p><strong>Chaque tasse est préparée avec soin pour vous offrir une expérience sensorielle unique.</strong></p>
+    </div>
+
+    <!-- Cafés Section -->
+    <section class="beverage-section coffee-section">
+        <div class="section-header-beverage">
+            <div class="beverage-icon">☕</div>
+            <div>
+                <h2>Nos Cafés</h2>
+                <p class="section-subtitle">Torréfiés avec passion, servis avec excellence</p>
+            </div>
+        </div>
+
+        <!-- Cafés Classiques -->
+        <div class="category-block">
+            <h3 class="category-title">Les Classiques</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card">
+                    <div class="beverage-card-header coffee">
+                        <h4>Espresso</h4>
+                        <span class="origin">Assemblage maison</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Court, intense et corsé. Notre blend signature révèle des notes de cacao et fruits secs. La quintessence du café italien.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌍 Brésil & Colombie</span>
+                            <span class="detail-badge">⚡ Intense</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">3.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header coffee">
+                        <h4>Café Allongé</h4>
+                        <span class="origin">Double extraction</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Plus doux qu'un espresso, parfait équilibre entre force et longueur. Idéal pour accompagner la conversation.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌍 Assemblage</span>
+                            <span class="detail-badge">⚡ Équilibré</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header coffee">
+                        <h4>Noisette / Crème</h4>
+                        <span class="origin">Espresso & lait</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">L'espresso adouci par une touche de lait. La noisette pour une nuance subtile, la crème pour plus d'onctuosité.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🥛 Lait frais</span>
+                            <span class="detail-badge">⚡ Doux</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header coffee">
+                        <h4>Cappuccino</h4>
+                        <span class="origin">Tradition italienne</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Espresso, lait chaud et mousse onctueuse. Le trio parfait, saupoudré de cacao. Un classique intemporel.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🥛 Mousse de lait</span>
+                            <span class="detail-badge">☕ Onctueux</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header infusion">
+                        <h4>Menthe Poivrée</h4>
+                        <span class="origin">Feuilles fraîches</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Fraîcheur intense et vivifiante. Aide à la digestion. Rafraîchissante été comme hiver.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌿 Menthe</span>
+                            <span class="detail-badge">❄️ Fraîche</span>
+                            <span class="detail-badge">💚 Digestive</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header infusion">
+                        <h4>Rooibos Vanille</h4>
+                        <span class="origin">Afrique du Sud</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Thé rouge d'Afrique du Sud, naturellement sans théine. Doux et légèrement sucré, notes de vanille gourmande.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇿🇦 Afrique</span>
+                            <span class="detail-badge">🍦 Vanille</span>
+                            <span class="detail-badge">👶 Enfants</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header infusion">
+                        <h4>Tisane Fruits Rouges</h4>
+                        <span class="origin">Mélange gourmand</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Fraise, framboise, hibiscus et morceaux de fruits. Acidulée et fruitée. Délicieuse chaude ou glacée.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🍓 Fruits</span>
+                            <span class="detail-badge">🌺 Hibiscus</span>
+                            <span class="detail-badge">❄️ Glacée possible</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header infusion">
+                        <h4>Infusion Digestive</h4>
+                        <span class="origin">Mélange du chef</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Fenouil, anis, réglisse et menthe. Spécialement composée pour faciliter la digestion après un repas copieux.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌿 Plantes</span>
+                            <span class="detail-badge">💚 Bien-être</span>
+                            <span class="detail-badge">✨ Après-repas</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.80€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thés Glacés (Saison) -->
+        <div class="category-block seasonal-block">
+            <h3 class="category-title">☀️ Thés Glacés Maison (En saison)</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card seasonal">
+                    <div class="beverage-card-header iced">
+                        <h4>Thé Vert Glacé Menthe-Citron</h4>
+                        <span class="origin">Infusion à froid 12h</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Sencha infusé à froid, menthe fraîche et zestes de citron bio. Rafraîchissant et désaltérant.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">❄️ Glacé</span>
+                            <span class="detail-badge">🍋 Citron</span>
+                            <span class="detail-badge">🌿 Menthe</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card seasonal">
+                    <div class="beverage-card-header iced">
+                        <h4>Thé Noir Glacé Pêche</h4>
+                        <span class="origin">Recette maison</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Ceylon infusé à froid avec morceaux de pêche fraîche. Sucré naturellement. Version adulte du thé glacé.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">❄️ Glacé</span>
+                            <span class="detail-badge">🍑 Pêche</span>
+                            <span class="detail-badge">🏠 Maison</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card seasonal">
+                    <div class="beverage-card-header iced">
+                        <h4>Rooibos Glacé Fruits Rouges</h4>
+                        <span class="origin">Sans théine</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Rooibos infusé à froid avec fraises, framboises et baies. Légèrement sucré, parfait pour toute la famille.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">❄️ Glacé</span>
+                            <span class="detail-badge">🍓 Fruits</span>
+                            <span class="detail-badge">👨‍👩‍👧‍👦 Famille</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Info Banner -->
+    <section class="service-banner">
+        <div class="service-banner-content">
+            <h2>☕🍵 À Savoir</h2>
+            <div class="service-info-grid">
+                <div class="service-info-item">
+                    <div class="service-icon">🫖</div>
+                    <h3>Préparation Artisanale</h3>
+                    <p>Chaque café est extrait avec notre machine espresso professionnelle. Nos thés sont infusés avec une eau à température idéale selon le type de thé.</p>
+                </div>
+                <div class="service-info-item">
+                    <div class="service-icon">📦</div>
+                    <h3>Vente à Emporter</h3>
+                    <p>Tous nos cafés et thés sont disponibles en sachets ou en grains pour prolonger l'expérience chez vous. Demandez conseil à notre équipe.</p>
+                </div>
+                <div class="service-info-item">
+                    <div class="service-icon">🌱</div>
+                    <h3>Engagement Qualité</h3>
+                    <p>Nous sélectionnons des cafés et thés issus de l'agriculture biologique ou du commerce équitable quand c'est possible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suggestions Pairing -->
+    <section class="pairing-section">
+        <h2>Accords Conseillés</h2>
+        <div class="pairing-grid">
+            <div class="pairing-card">
+                <h3>🍰 Avec les Desserts</h3>
+                <ul>
+                    <li><strong>Fondant chocolat</strong> → Espresso ou Assam</li>
+                    <li><strong>Tarte aux fruits</strong> → Darjeeling ou Thé blanc</li>
+                    <li><strong>Crème brûlée</strong> → Earl Grey ou Oolong</li>
+                    <li><strong>Tiramisu</strong> → Ristretto italien</li>
+                </ul>
+            </div>
+            <div class="pairing-card">
+                <h3>⏰ Selon le Moment</h3>
+                <ul>
+                    <li><strong>Matin</strong> → Assam, Breakfast blend</li>
+                    <li><strong>Après-déjeuner</strong> → Espresso, Sencha</li>
+                    <li><strong>Après-midi</strong> → Earl Grey, Darjeeling</li>
+                    <li><strong>Soirée</strong> → Rooibos, Infusions, Décaféiné</li>
+                </ul>
+            </div>
+            <div class="pairing-card">
+                <h3>🌡️ Selon la Saison</h3>
+                <ul>
+                    <li><strong>Printemps</strong> → Thés verts japonais, Darjeeling</li>
+                    <li><strong>Été</strong> → Thés glacés, Thés blancs</li>
+                    <li><strong>Automne</strong> → Oolong, Ceylon, Cappuccino</li>
+                    <li><strong>Hiver</strong> → Thés noirs corsés, Chai, Irish Coffee</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER : Copier depuis contact.html ou menus.html -->
+
+<!-- CSS SPÉCIFIQUE À CETTE PAGE -->
+
+
+
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header coffee">
+                        <h4>Café Viennois</h4>
+                        <span class="origin">Tradition d'Europe centrale</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Café allongé surmonté de chantilly et copeaux de chocolat. Un moment de douceur gourmande.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🍫 Chocolat</span>
+                            <span class="detail-badge">☁️ Chantilly</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header coffee">
+                        <h4>Café Décaféiné</h4>
+                        <span class="origin">Décaféination naturelle</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Tout le plaisir du café sans la caféine. Processus naturel préservant tous les arômes.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌱 Sans caféine</span>
+                            <span class="detail-badge">⚡ Naturel</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">3.80€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cafés d'Exception -->
+        <div class="category-block premium-block">
+            <h3 class="category-title">Cafés d'Exception - Single Origin</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card premium">
+                    <div class="beverage-card-header coffee-premium">
+                        <h4>Éthiopie Yirgacheffe</h4>
+                        <span class="origin">Région de Sidamo</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Le berceau du café. Notes florales de jasmin, bergamote et pêche blanche. Acidité vive et complexe, corps léger et délicat.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌍 Éthiopie</span>
+                            <span class="detail-badge">🌸 Floral</span>
+                            <span class="detail-badge">⭐ Altitude 1800m</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card premium">
+                    <div class="beverage-card-header coffee-premium">
+                        <h4>Colombia Supremo</h4>
+                        <span class="origin">Huila - Ferme familiale</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Équilibre parfait et douceur remarquable. Notes de caramel, noisette et fruits rouges. Corps moyen, finale sucrée.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌍 Colombie</span>
+                            <span class="detail-badge">🍫 Caramel</span>
+                            <span class="detail-badge">🌱 Bio</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card premium">
+                    <div class="beverage-card-header coffee-premium">
+                        <h4>Kenya AA</h4>
+                        <span class="origin">Région du Mont Kenya</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Puissant et complexe. Acidité prononcée évoquant les agrumes et fruits noirs. Corps plein et vineux, finale persistante.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌍 Kenya</span>
+                            <span class="detail-badge">🍊 Agrumes</span>
+                            <span class="detail-badge">⚡ Puissant</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card premium">
+                    <div class="beverage-card-header coffee-premium">
+                        <h4>Guatemala Antigua</h4>
+                        <span class="origin">Volcan Acatenango</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Café volcanique riche et complexe. Notes de chocolat noir, épices douces et fumée subtile. Corps plein et velouté.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌍 Guatemala</span>
+                            <span class="detail-badge">🍫 Chocolat</span>
+                            <span class="detail-badge">🌋 Volcanique</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.00€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cafés Gourmands -->
+        <div class="category-block">
+            <h3 class="category-title">Accompagnements Gourmands</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card special">
+                    <div class="beverage-card-header coffee-special">
+                        <h4>Café Gourmand</h4>
+                        <span class="origin">L'incontournable</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Un espresso accompagné d'une trilogie de mini-desserts maison : crème brûlée, fondant chocolat et tarte du jour.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🍰 3 desserts</span>
+                            <span class="detail-badge">✨ Fait maison</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">10.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card special">
+                    <div class="beverage-card-header coffee-special">
+                        <h4>Irish Coffee</h4>
+                        <span class="origin">Whisky irlandais</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Café chaud, whisky irlandais, sucre de canne et crème fouettée. Un classique réconfortant et élégant.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🥃 Whisky</span>
+                            <span class="detail-badge">☁️ Crème</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">9.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card special">
+                    <div class="beverage-card-header coffee-special">
+                        <h4>Affogato</h4>
+                        <span class="origin">Dolce italiano</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Glace vanille artisanale "noyée" dans un espresso brûlant. Le contraste chaud-froid parfait.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🍨 Glace vanille</span>
+                            <span class="detail-badge">☕ Espresso</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">7.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thés Section -->
+    <section class="beverage-section tea-section">
+        <div class="section-header-beverage">
+            <div class="beverage-icon">🍵</div>
+            <div>
+                <h2>Notre Sélection de Thés</h2>
+                <p class="section-subtitle">Grands crus et jardins d'exception</p>
+            </div>
+        </div>
+
+        <!-- Thés Noirs -->
+        <div class="category-block">
+            <h3 class="category-title">Thés Noirs</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-black">
+                        <h4>Darjeeling First Flush</h4>
+                        <span class="origin">Himalaya indien</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Le "champagne des thés". Première récolte du printemps, feuilles délicates. Notes florales, muscatées et fruitées. Infusion dorée.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇮🇳 Inde</span>
+                            <span class="detail-badge">🌸 Floral</span>
+                            <span class="detail-badge">⭐ Grand cru</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-black">
+                        <h4>Assam FTGFOP</h4>
+                        <span class="origin">Vallée du Brahmapoutre</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Thé corsé et malté, idéal pour le petit-déjeuner. Notes de miel et pain d'épices. Parfait avec du lait.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇮🇳 Inde</span>
+                            <span class="detail-badge">🍯 Malté</span>
+                            <span class="detail-badge">⚡ Corsé</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-black">
+                        <h4>Ceylon Orange Pekoe</h4>
+                        <span class="origin">Hauts plateaux du Sri Lanka</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Équilibré et rafraîchissant. Notes d'agrumes et légère astringence. Liqueur cuivrée brillante, parfait à toute heure.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇱🇰 Sri Lanka</span>
+                            <span class="detail-badge">🍊 Agrumes</span>
+                            <span class="detail-badge">⚖️ Équilibré</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-black">
+                        <h4>Earl Grey Impérial</h4>
+                        <span class="origin">Bergamote de Calabre</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Blend de thés noirs et bergamote naturelle. L'élégance britannique par excellence. Version prestige avec pétales de bleuet.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🍋 Bergamote</span>
+                            <span class="detail-badge">💐 Bleuet</span>
+                            <span class="detail-badge">🇬🇧 Classique</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-black">
+                        <h4>Thé des Seigneurs</h4>
+                        <span class="origin">Yunnan - Chine</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Thé noir chinois aux bourgeons dorés. Doux et velouté, notes de cacao et miel. Peu de théine, idéal en soirée.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇨🇳 Chine</span>
+                            <span class="detail-badge">🍫 Cacao</span>
+                            <span class="detail-badge">✨ Bourgeons dorés</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thés Verts -->
+        <div class="category-block">
+            <h3 class="category-title">Thés Verts</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-green">
+                        <h4>Sencha Supérieur</h4>
+                        <span class="origin">Région de Shizuoka - Japon</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Le thé vert japonais par excellence. Fraîcheur végétale, notes marines et d'herbe fraîche. Liqueur vert jade.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇯🇵 Japon</span>
+                            <span class="detail-badge">🌿 Végétal</span>
+                            <span class="detail-badge">🍃 Umami</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card premium">
+                    <div class="beverage-card-header tea-green-premium">
+                        <h4>Gyokuro</h4>
+                        <span class="origin">Thé d'ombre - Uji</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Le plus prestigieux des thés japonais. Cultivé à l'ombre 3 semaines. Douceur extrême, umami intense, zéro amertume.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇯🇵 Japon</span>
+                            <span class="detail-badge">🌑 Ombré</span>
+                            <span class="detail-badge">👑 Prestige</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">9.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-green">
+                        <h4>Lung Ching (Puits du Dragon)</h4>
+                        <span class="origin">Hangzhou - Chine</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Thé impérial aux feuilles plates. Doux et velouté, notes de châtaigne grillée. L'un des thés les plus célèbres de Chine.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇨🇳 Chine</span>
+                            <span class="detail-badge">🌰 Châtaigne</span>
+                            <span class="detail-badge">🐉 Impérial</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">7.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-green">
+                        <h4>Thé Vert à la Menthe</h4>
+                        <span class="origin">Tradition marocaine</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Gunpowder et menthe fraîche. Rafraîchissant et désaltérant. Servi traditionnel avec sucre de canne.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌿 Menthe fraîche</span>
+                            <span class="detail-badge">🍵 Traditionnel</span>
+                            <span class="detail-badge">❄️ Rafraîchissant</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">5.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thés Blancs & Oolong -->
+        <div class="category-block">
+            <h3 class="category-title">Thés Blancs & Oolong</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card premium">
+                    <div class="beverage-card-header tea-white">
+                        <h4>Bai Mu Dan (Pivoine Blanche)</h4>
+                        <span class="origin">Fujian - Chine</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Thé blanc délicat aux bourgeons duveteux. Notes florales sucrées, miel et pêche blanche. Antioxydant naturel puissant.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇨🇳 Chine</span>
+                            <span class="detail-badge">🌸 Floral</span>
+                            <span class="detail-badge">☁️ Délicat</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">7.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-oolong">
+                        <h4>Tie Guan Yin (Déesse de Fer)</h4>
+                        <span class="origin">Anxi - Fujian</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Oolong semi-oxydé légendaire. Notes florales d'orchidée, fraîcheur crémeuse. Peut être infusé plusieurs fois.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇨🇳 Chine</span>
+                            <span class="detail-badge">🌺 Orchidée</span>
+                            <span class="detail-badge">🔄 Réinfusable</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">7.00€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header tea-oolong">
+                        <h4>Formosa Oolong</h4>
+                        <span class="origin">Montagnes de Taiwan</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Oolong fruité et généreux. Notes de fruits mûrs, miel et amande. Liqueur ambrée, longueur en bouche remarquable.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🇹🇼 Taiwan</span>
+                            <span class="detail-badge">🍑 Fruité</span>
+                            <span class="detail-badge">🍯 Miellé</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">6.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Infusions & Rooibos -->
+        <div class="category-block">
+            <h3 class="category-title">Infusions & Rooibos (Sans Théine)</h3>
+            <div class="beverage-grid">
+                <div class="beverage-card">
+                    <div class="beverage-card-header infusion">
+                        <h4>Verveine Citronnée</h4>
+                        <span class="origin">Feuilles entières</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Infusion apaisante et digestive. Notes citronnées fraîches. Idéale en fin de repas pour faciliter la digestion.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌿 Digestive</span>
+                            <span class="detail-badge">🍋 Citron</span>
+                            <span class="detail-badge">😌 Apaisante</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.50€</span>
+                    </div>
+                </div>
+
+                <div class="beverage-card">
+                    <div class="beverage-card-header infusion">
+                        <h4>Camomille Romaine</h4>
+                        <span class="origin">Fleurs séchées</span>
+                    </div>
+                    <div class="beverage-card-body">
+                        <p class="beverage-description">Douce et réconfortante. Propriétés calmantes naturelles. Parfaite pour une pause détente ou en soirée.</p>
+                        <div class="beverage-details">
+                            <span class="detail-badge">🌼 Fleurs</span>
+                            <span class="detail-badge">😴 Relaxante</span>
+                            <span class="detail-badge">🌙 Soir</span>
+                        </div>
+                    </div>
+                    <div class="beverage-card-footer">
+                        <span class="beverage-price">4.50€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                            <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Le Comptoir Gourmand</h3>
+                <p>Bistronomie authentique et cuisine de caractère depuis toujours. Venez découvrir notre passion pour la gastronomie française dans un cadre chaleureux.</p>
+            </div>
+            <div class="footer-section footer-links">
+                <h3>Navigation</h3>
+                <a href="index.html">Accueil</a>
+                <a href="menus.html">Nos Menus</a>
+                <a href="vins.html">Vins & Champagnes</a>
+                <a href="cafes.html">Cafés & Thés</a>
+                <a href="snacking.html">Snacking</a>
+                <a href="histoire.html">Notre Histoire</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Mardi - Vendredi<br>12h-14h • 19h-22h</p>
+                <p>Samedi<br>12h-14h30 • 19h-22h30</p>
+                <p>Dimanche<br>12h-15h</p>
+                <p><strong>Fermé le lundi</strong></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📍 28 Place du Marché<br>69000 Lyon</p>
+                <p>📞 04 78 XX XX XX</p>
+                <p>✉️ contact@comptoirgourmand.fr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Le Comptoir Gourmand. Tous droits réservés.</p>
+        </div>
+    </footer>
+<!-- SCRIPT NAVIGATION MOBILE -->
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    navLinks.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                }
+            });
+        });
+    }
+    </script>
+</body>
+</html>
