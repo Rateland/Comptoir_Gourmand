@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snacking & Sur le Pouce - Le Comptoir Gourmand</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root{
+            --primary:#8B4513; /* marron chaud */
+            --secondary:#D2691E; /* terre cuite */
+            --accent:#CD853F; /* sable */
+            --dark:#3E2723;
+            --light:#FFF8DC;
+            --cream:#FAEBD7;
+        }
+
+        body{ font-family:'Georgia','Times New Roman',serif; line-height:1.7; color:var(--dark); background:var(--cream); }
+
+        /* Navigation */
+        nav{ background:linear-gradient(to bottom, var(--dark) 0%, #5D4037 100%); box-shadow:0 4px 12px rgba(0,0,0,.3); position:sticky; top:0; z-index:1000; border-bottom:3px solid var(--accent); }
+        .nav-container{ max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:1.2rem 2rem; }
+        .logo{ font-size:2rem; font-weight:bold; color:var(--light); text-shadow:2px 2px 4px rgba(0,0,0,.5); font-family:'Georgia',serif; letter-spacing:1px; text-decoration:none; display:block; }
+        .logo span{ color:var(--accent); font-style:italic; }
+        .nav-links{ display:flex; gap:0; list-style:none; }
+        .nav-links li{ position:relative; }
+        .nav-links a{ display:block; padding:1rem 1.5rem; text-decoration:none; color:var(--light); font-weight:500; font-size:1rem; transition:all .3s ease; border-right:1px solid rgba(255,255,255,.1); }
+        .nav-links li:first-child a{ border-left:1px solid rgba(255,255,255,.1); }
+        .nav-links a:hover, .nav-links a.active{ background:var(--secondary); color:white; }
+        .menu-toggle{ display:none; background:var(--accent); border:none; padding:.8rem 1.2rem; color:white; font-size:1.5rem; cursor:pointer; border-radius:5px; }
+
+        /* Page Header */
+        .page-header{ background:linear-gradient(rgba(62,39,35,.85), rgba(62,39,35,.85)); padding:6rem 2rem 4rem; text-align:center; color:white; position:relative; }
+        .page-header-bg{ position:absolute; inset:0; background:repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139,69,19,.1) 2px, rgba(139,69,19,.1) 4px), repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,69,19,.1) 2px, rgba(139,69,19,.1) 4px), linear-gradient(135deg, #5D4037 0%, #3E2723 100%); z-index:0; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:rgba(255,255,255,.15); }
+        .page-header-content{ position:relative; z-index:1; max-width:800px; margin:0 auto; }
+        .page-header h1{ font-size:4rem; margin-bottom:1rem; text-shadow:3px 3px 6px rgba(0,0,0,.5); }
+        .page-header p{ font-size:1.5rem; color:var(--accent); font-style:italic; }
+
+        /* Main */
+        .content{ max-width:1400px; margin:0 auto; padding:5rem 2rem; }
+        .intro-text{ text-align:center; max-width:900px; margin:0 auto 5rem; background:white; padding:3rem; border-radius:10px; box-shadow:0 5px 20px rgba(0,0,0,.1); border-top:4px solid var(--accent); }
+        .intro-text p{ font-size:1.2rem; color:#555; line-height:1.8; margin-bottom:1rem; }
+
+        /* Cards (reuse du style menus) */
+        .menu-section{ margin-bottom:5rem; }
+        .menu-card{ background:white; border-radius:10px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.15); border:3px solid var(--accent); }
+        .menu-card-header{ background:linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%); color:white; padding:2.5rem 3rem; text-align:center; border-bottom:3px solid var(--accent); }
+        .menu-card-header h2{ font-size:2.8rem; margin-bottom:.5rem; }
+        .menu-card-header .price{ font-size:2rem; color:var(--light); font-weight:bold; }
+        .menu-card-header .subtitle{ font-size:1.2rem; color:var(--accent); font-style:italic; margin-top:.5rem; }
+        .menu-card-body{ padding:3rem; }
+
+        /* A la carte category grid */
+        .carte-section{ background:white; padding:4rem; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.1); border-top:5px solid var(--accent); }
+        .carte-section h2{ font-size:2.5rem; color:var(--primary); text-align:center; margin-bottom:3rem; position:relative; }
+        .carte-section h2::after{ content:''; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:100px; height:3px; background:var(--accent); }
+        .carte-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(380px, 1fr)); gap:3rem; margin-top:3rem; }
+        .carte-category h3{ font-size:1.8rem; color:var(--primary); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:2px solid var(--accent); }
+        .carte-item{ display:flex; justify-content:space-between; align-items:flex-start; padding:1rem 0; border-bottom:1px solid rgba(139,69,19,.1); }
+        .carte-item:last-child{ border-bottom:none; }
+        .carte-item-info{ flex:1; padding-right:1rem; }
+        .carte-item-name{ font-size:1.2rem; font-weight:600; color:var(--dark); margin-bottom:.3rem; }
+        .carte-item-desc{ font-size:.95rem; color:#666; font-style:italic; }
+        .carte-item-price{ font-size:1.3rem; font-weight:bold; color:var(--accent); white-space:nowrap; }
+
+        /* Badges rapides (veggie, new, spicy) */
+        .badge{ display:inline-block; border:1px solid rgba(205,133,63,.45); border-radius:999px; padding:.15rem .55rem; font-size:.85rem; margin-left:.35rem; background:linear-gradient(180deg,#fff,#fff8f0); color:var(--dark); }
+
+        /* Footer */
+        footer{ background:linear-gradient(to bottom, var(--dark) 0%, #1a0f0a 100%); color:var(--light); padding:4rem 2rem 2rem; border-top:4px solid var(--accent); }
+        .footer-content{ max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:4rem; margin-bottom:3rem; }
+        .footer-section h3{ color:var(--accent); margin-bottom:1.5rem; font-size:1.5rem; }
+        .footer-section p, .footer-section a{ color:var(--light); text-decoration:none; display:block; margin-bottom:.8rem; font-size:1.05rem; transition:color .3s ease; }
+        .footer-section a:hover{ color:var(--accent); }
+        .footer-links a::before{ content:'→ '; color:var(--accent); }
+        .footer-bottom{ text-align:center; padding-top:2rem; border-top:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.6); }
+
+        /* Responsive */
+        @media (max-width:1024px){
+            .nav-links{ position:fixed; top:80px; right:-100%; width:300px; height:calc(100vh - 80px); background:var(--dark); flex-direction:column; padding:2rem 0; transition:right .3s ease; box-shadow:-5px 0 15px rgba(0,0,0,.3); }
+            .nav-links.active{ right:0; }
+            .nav-links a{ border-right:none; border-bottom:1px solid rgba(255,255,255,.1); padding:1.5rem 2rem; }
+            .nav-links li:first-child a{ border-left:none; }
+            .menu-toggle{ display:block; }
+            .carte-grid{ grid-template-columns:1fr; }
+        }
+        @media (max-width:768px){
+            .page-header h1{ font-size:2.5rem; }
+            .menu-card-header h2{ font-size:2rem; }
+            .menu-card-body, .carte-section{ padding:2rem; }
+            .content{ padding:3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Le Comptoir <span>Gourmand</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menus.html">Menus</a></li>
+                <li><a href="vins.html">Vins & Champagnes</a></li>
+                <li><a href="cafes.html">Cafés & Thés</a></li>
+                <li><a href="snacking.html" class="active">Snacking</a></li>
+                <li><a href="histoire.html">Notre Histoire</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <span style="position:relative; z-index:1;">IMAGE HEADER - Snack & street food (1920x400)</span>
+        </div>
+        <div class="page-header-content">
+            <h1>Snacking & Sur le Pouce</h1>
+            <p>Rapide, gourmand, fait maison</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <!-- Intro -->
+        <div class="intro-text">
+            <p>Pour une pause décontractée ou un repas express, notre carte snacking privilégie la fraîcheur et la générosité. Sandwichs croustillants, salades composées, planches à partager… tout est préparé à la minute.</p>
+            <p><strong>Disponible en service continu aux heures d’ouverture.</strong></p>
+        </div>
+
+        <!-- Formules -->
+        <div class="menu-section">
+            <div class="menu-card">
+                <div class="menu-card-header">
+                    <h2>Formules</h2>
+                    <div class="subtitle">À composer selon vos envies</div>
+                </div>
+                <div class="menu-card-body">
+                    <div class="carte-grid" style="margin-top:0;">
+                        <div class="carte-category">
+                            <h3>Midi</h3>
+                            <div class="carte-item">
+                                <div class="carte-item-info">
+                                    <div class="carte-item-name">Sandwich + Boisson + Dessert <span class="badge">best-seller</span></div>
+                                    <div class="carte-item-desc">Pain artisanal, garniture au choix, soft 33cl, dessert du jour</div>
+                                </div>
+                                <div class="carte-item-price">14€</div>
+                            </div>
+                            <div class="carte-item">
+                                <div class="carte-item-info">
+                                    <div class="carte-item-name">Salade + Boisson</div>
+                                    <div class="carte-item-desc">Toute salade au choix, soft 33cl</div>
+                                </div>
+                                <div class="carte-item-price">13€</div>
+                            </div>
+                            <div class="carte-item">
+                                <div class="carte-item-info">
+                                    <div class="carte-item-name">Croque + Frites + Boisson</div>
+                                    <div class="carte-item-desc">Croque au choix, portion de frites, soft 33cl</div>
+                                </div>
+                                <div class="carte-item-price">15€</div>
+                            </div>
+                        </div>
+                        <div class="carte-category">
+                            <h3>À partager</h3>
+                            <div class="carte-item">
+                                <div class="carte-item-info">
+                                    <div class="carte-item-name">2 tapas au choix + 2 verres de vin</div>
+                                    <div class="carte-item-desc">Sélection du moment, verres 12cl</div>
+                                </div>
+                                <div class="carte-item-price">22€</div>
+                            </div>
+                            <div class="carte-item">
+                                <div class="carte-item-info">
+                                    <div class="carte-item-name">Planche mixte + Bouteille de vin</div>
+                                    <div class="carte-item-desc">Charcuteries & fromages, bouteille sélection du sommelier</div>
+                                </div>
+                                <div class="carte-item-price">à partir de 48€</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte Snacking -->
+        <div class="carte-section">
+            <h2>La Carte</h2>
+            <div class="carte-grid">
+                <!-- Sandwichs & Paninis -->
+                <div class="carte-category">
+                    <h3>Sandwichs & Paninis</h3>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Jambon-Comté</div>
+                            <div class="carte-item-desc">Beurre de baratte, cornichons, pain campagne</div>
+                        </div>
+                        <div class="carte-item-price">9€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Poulet César</div>
+                            <div class="carte-item-desc">Blanc de poulet, romaine, parmesan, sauce césar</div>
+                        </div>
+                        <div class="carte-item-price">9,5€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Végétarien</div>
+                            <div class="carte-item-desc">Mozzarella, tomates confites, roquette, pesto <span class="badge">végé</span></div>
+                        </div>
+                        <div class="carte-item-price">9€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Panini 3 fromages</div>
+                            <div class="carte-item-desc">Comté, mozzarella, bleu, miel de montagne</div>
+                        </div>
+                        <div class="carte-item-price">9,5€</div>
+                    </div>
+                </div>
+
+                <!-- Tartines & Croques -->
+                <div class="carte-category">
+                    <h3>Tartines & Croques</h3>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Croque-Monsieur</div>
+                            <div class="carte-item-desc">Pain de mie maison, jambon, béchamel, emmental</div>
+                        </div>
+                        <div class="carte-item-price">10€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Croque-Madame</div>
+                            <div class="carte-item-desc">Version Monsieur avec œuf miroir</div>
+                        </div>
+                        <div class="carte-item-price">11€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Tartine chèvre-miel</div>
+                            <div class="carte-item-desc">Fromage de chèvre, miel de lavande, noix, roquette</div>
+                        </div>
+                        <div class="carte-item-price">9,5€</div>
+                    </div>
+                </div>
+
+                <!-- Salades & Bowls -->
+                <div class="carte-category">
+                    <h3>Salades & Bowls</h3>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">César poulet</div>
+                            <div class="carte-item-desc">Romaine, poulet rôti, croûtons, parmesan, sauce maison</div>
+                        </div>
+                        <div class="carte-item-price">13€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Niçoise</div>
+                            <div class="carte-item-desc">Thon, œufs, haricots verts, olives, anchois</div>
+                        </div>
+                        <div class="carte-item-price">13,5€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Veggie Bowl</div>
+                            <div class="carte-item-desc">Quinoa, légumes rôtis, pois chiches, feta <span class="badge">végé</span></div>
+                        </div>
+                        <div class="carte-item-price">12,5€</div>
+                    </div>
+                </div>
+
+                <!-- Tapas & Petites Faims -->
+                <div class="carte-category">
+                    <h3>Tapas & Petites Faims</h3>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Frites maison</div>
+                            <div class="carte-item-desc">Pommes de terre bintje, sauce maison</div>
+                        </div>
+                        <div class="carte-item-price">5€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Bruschetta tomate-basilic</div>
+                            <div class="carte-item-desc">Tomates fraîches, ail, huile d'olive, basilic</div>
+                        </div>
+                        <div class="carte-item-price">7€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Nuggets de poulet fermier</div>
+                            <div class="carte-item-desc">Panure maison, sauce barbecue</div>
+                        </div>
+                        <div class="carte-item-price">8€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Calamars frits</div>
+                            <div class="carte-item-desc">Citron & aïoli</div>
+                        </div>
+                        <div class="carte-item-price">9€</div>
+                    </div>
+                </div>
+
+                <!-- Planches à partager -->
+                <div class="carte-category">
+                    <h3>Planches à partager</h3>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Charcuteries</div>
+                            <div class="carte-item-desc">Serrano, saucisson, terrine de campagne, condiments</div>
+                        </div>
+                        <div class="carte-item-price">18€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Fromages</div>
+                            <div class="carte-item-desc">Sélection affinée, confiture & noix</div>
+                        </div>
+                        <div class="carte-item-price">18€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Mixte</div>
+                            <div class="carte-item-desc">Charcuteries & fromages, idéal à deux</div>
+                        </div>
+                        <div class="carte-item-price">22€</div>
+                    </div>
+                </div>
+
+                <!-- Desserts sur le pouce -->
+                <div class="carte-category">
+                    <h3>Desserts sur le pouce</h3>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Brownie chocolat</div>
+                            <div class="carte-item-desc">Noix de pécan, cœur fondant</div>
+                        </div>
+                        <div class="carte-item-price">5,5€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Tarte du jour</div>
+                            <div class="carte-item-desc">Selon l'inspiration</div>
+                        </div>
+                        <div class="carte-item-price">6€</div>
+                    </div>
+                    <div class="carte-item">
+                        <div class="carte-item-info">
+                            <div class="carte-item-name">Yaourt fermier</div>
+                            <div class="carte-item-desc">Coulis au choix</div>
+                        </div>
+                        <div class="carte-item-price">4,5€</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Le Comptoir Gourmand</h3>
+                <p>Bistronomie authentique et cuisine de caractère depuis toujours. Venez découvrir notre passion pour la gastronomie française dans un cadre chaleureux.</p>
+            </div>
+            <div class="footer-section footer-links">
+                <h3>Navigation</h3>
+                <a href="index.html">Accueil</a>
+                <a href="menus.html">Nos Menus</a>
+                <a href="vins.html">Vins & Champagnes</a>
+                <a href="cafes.html">Cafés & Thés</a>
+                <a href="snacking.html">Snacking</a>
+                <a href="histoire.html">Notre Histoire</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Horaires</h3>
+                <p>Mardi - Vendredi<br>12h-14h • 19h-22h</p>
+                <p>Samedi<br>12h-14h30 • 19h-22h30</p>
+                <p>Dimanche<br>12h-15h</p>
+                <p><strong>Fermé le lundi</strong></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📍 28 Place du Marché<br>69000 Lyon</p>
+                <p>📞 04 78 XX XX XX</p>
+                <p>✉️ contact@comptoirgourmand.fr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Le Comptoir Gourmand. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    navLinks.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
